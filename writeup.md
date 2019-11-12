@@ -20,8 +20,10 @@ The goals / steps of this project are the following:
 [//]: # (Image References)
 
 [image1]: ./examples_mine/class_visualization.png "Visualization"
-[image2]: ./examples_mine/grayscale.jpg "Grayscaling"
-[image3]: ./examples_mine/random_noise.jpg "Random Noise"
+[image11]: ./examples_mine/modified_class_visualization.png "Visualization updated"
+
+[image2]: ./examples_mine/sing_1.jpg "Before"
+[image3]: ./examples_mine/sing_2.jpg "After"
 [image4]: ./examples_mine/signs_all.png "Original image"
 [image5]: ./examples_mine/signs_resized.png "Resized and greyscale"
 [image6]: ./examples_mine/placeholder.png "Traffic Sign 3"
@@ -64,13 +66,21 @@ Here is an exploratory visualization of the data set. It is a bar chart showing 
 As a first step I decided to convert images to gray scale. This step reduces the size of the network.
 
 As the next step I generated additional data. I did this because, as seen from previous image, the training set is highly unbalanced.
-To generate a new data I added Gaussian blur with the probability 50% and then add random rotation (in range +/-25 deg), random scaling (in range 0.9 -1) and random translation (in range +/-5 px). I was applying this transformation to random object of a underrepresented  type until there are at least 800 images of each type.
+To generate a new data I added Gaussian blur with the probability 50% and then add random rotation (in range +/-25 deg), random scaling (in range 0.9 -1) and random translation (in range +/-5 px). I was applying this transformation to random object of a underrepresented  type until there are at least 1000 images of each type.
 
 As a final step I normalized the image data to help the optimizer.
 
 Here is an example of an original image and an augmented image:
 
-![alt text][image3] TODO
+![alt text][image2] 
+![alt text][image3]
+
+
+Here is a visualization of the new dataset:
+
+![alt text][image11]
+
+
 
 #### 2. Describe what your final model architecture looks like including model type, layers, layer sizes, connectivity, etc.) Consider including a diagram and/or table describing the final model.
 
@@ -88,16 +98,16 @@ My final model was based on LeNet structure. I only added two additional dropout
 | Flatten | output 400 |
 | Fully connected		|Output  120      									|
 |			RELU			|												|
-|			Dropout			|						probability=0.85						|
+|			Dropout			|						probability=0.9						|
 | Fully connected		|Output  84      									|
 |			RELU			|												|
-|			Dropout			|						probability=0.85						|
+|			Dropout			|						probability=0.9					|
 | Fully connected		|Output  42 (num_classes)   									|
 
 
 #### 3. Describe how you trained your model. The discussion can include the type of optimizer, the batch size, number of epochs and any hyperparameters such as learning rate.
 
-To train the model, I used an batch size 128 and learning rate 0.001. I was training 150 epochs. I was playing around with this values, but further tuning them might still lead to better overall network performance.
+To train the model, I used an batch size 256 and learning rate 0.001. I was training 100 epochs. I was playing around with this values, but further tuning them might still lead to better overall network performance.
 
 I did not change the mu and sigma parameters.
 
@@ -111,9 +121,9 @@ My base solution was to use the unchanged LeNet architecture. It was relatively 
 With the data augmentation in the dataset, I was able to fulfill the project requirements, so I did not introduce any other changes.
 
 My final model results were:
-* training set accuracy of 0.980636833046
-* validation set accuracy of 0.936054421282
-* test set accuracy of 0.919714964144
+* training set accuracy of 0.9954536659548282
+* validation set accuracy of 0.940362811548099
+* test set accuracy of 0.9175771972912224
 
 ### Test a Model on New Images
 
@@ -123,19 +133,17 @@ Here are five German traffic signs that I found on the web. Left image shows the
 
 ![alt text][image4] ![alt text][image5]
 
-[ True  True False  True  True]
-
-On this images I got 0.8 accuracy. Only third image, keep right, was missclassified.
+[ True  True Ture  True  True]
 
 
 True labels: [37, 40, 38, 14, 23]
 
 Potential detection difficulties :
-  1. The first image should be easy to classify
-  2.  In the second one the perspective might be a bit unusual.
-  3. On third image the sign is not in the center and do not occupy a lot of space. It might be that that's why the detection has failed. Some additional augmentation might help to some extend.
-  4. On the fourth image the object of interest does not occupy the whole space
-  5. Last image is not a German sign, but it's similar. With this example I wanted to test how good the network can generalize.
+  1. In the first image the perspective might be a bit unusual, also it has a reflection.
+  2. On the fourth image the object of interest does not occupy the whole space
+  4. The proportions of the fourth image are a bit distorted.
+  5. Fourth image should not create any problems.
+  3. On the last image the sign is not in the center and do not occupy a lot of space.
 
 #### 2. Discuss the model's predictions on these new traffic signs and compare the results to predicting on the test set. At a minimum, discuss what the predictions were, the accuracy on these new predictions, and compare the accuracy to the accuracy on the test set (OPTIONAL: Discuss the results in more detail as described in the "Stand Out Suggestions" part of the rubric).
 
@@ -143,37 +151,34 @@ Here are the results of the prediction:
 
 | Image			        |     Prediction	        					|
 |:---------------------:|:---------------------------------------------:|
-| Right or Straight      		| Right or Straight    				|
-| Roundabout     			| Roundabout									|
 | Keep right					|  	Bicycles crossing								|
 | Stop	      		| Stop 				 				|
 | Slippery Road			| Slippery Road      							|
+| Right or Straight      		| Right or Straight    				|
+| Keep right					|  	Keep right							|
 
 
-The model was able to correctly guess 4 of the 5 traffic signs, which gives an accuracy of 80%. This worse than performance on the test set.
+The model was able to correctly guess all of the traffic signs, which gives an accuracy of 100%. This better than performance on the test set.
 
 #### 3. Describe how certain the model is when predicting on each of the five new images by looking at the softmax probabilities for each prediction. Provide the top 5 softmax probabilities for each image along with the sign type of each probability. (OPTIONAL: as described in the "Stand Out Suggestions" part of the rubric, visualizations can also be provided such as bar charts)
 
 
-      [[  1.00000000e+00 ,   7.97268262e-19,   9.76660098e-23,
-          2.44943788e-23,   2.22108600e-23],
+        TopKV2(values=array([[1.0000000e+00, 6.4501080e-09, 5.0517222e-09, 1.6942245e-12,
+        5.3638412e-14],
+       [9.7301447e-01, 2.5499823e-02, 1.4260906e-03, 4.7685506e-05,
+        3.7405280e-06],
+       [9.8875976e-01, 1.1238799e-02, 7.5690326e-07, 5.8051165e-07,
+        1.5814315e-07],
+       [9.9999976e-01, 2.2679282e-07, 8.3228455e-09, 2.7594274e-09,
+        1.0311699e-09],
+       [9.9601656e-01, 2.1440170e-03, 1.8386871e-03, 6.6851590e-07,
+        2.9193751e-08]], dtype=float32), indices=array([[40, 35, 12, 38,  2],
+       [14, 38, 22, 34, 25],
+       [23, 26, 29, 20, 19],
+       [37, 30, 42, 39, 21],
+       [38,  0, 34, 40, 21]], dtype=int32))
 
-       [  9.99997139e-01,   1.87208377e-06,   8.45872023e-07,
-          7.97284159e-08,   1.78913542e-08],
-       [  9.99880314e-01,   1.13959046e-04,   5.75249169e-06,
-          3.45303093e-08,   3.26618593e-11],
-       [  1.00000000e+00,   7.02739358e-26,   1.02001346e-33,
-          2.19083639e-36,   1.14293876e-36],
-       [  9.91301715e-01,   8.12836178e-03,   5.64620655e-04,
-          4.10439725e-06,   7.29212445e-07]], dtype=float32),
-
-          indices=array([[37, 35, 22, 34, 40],
-       [40, 12, 16, 14, 34],
-       [29, 23, 22, 21, 30],
-       [14, 34,  3, 10, 38],
-       [23, 19, 17, 25, 22]]
-
-All the predictions, even the wrong one has a very high probability.
+All the predictions were correct and with a very high probability.
 
 
 ### (Optional) Visualizing the Neural Network (See Step 4 of the Ipython notebook for more details)
