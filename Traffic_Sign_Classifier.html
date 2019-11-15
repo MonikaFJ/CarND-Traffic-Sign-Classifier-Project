@@ -13138,12 +13138,13 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[30]:</div>
+<div class="prompt input_prompt">In&nbsp;[35]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Load pickled data</span>
 <span class="kn">import</span> <span class="nn">pickle</span>
 <span class="kn">import</span> <span class="nn">os</span>
+
 <span class="c1"># TODO: Fill this in based on where you saved the training and testing data</span>
 <span class="n">path</span><span class="o">=</span><span class="s2">&quot;../data/&quot;</span>
 <span class="n">training_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span><span class="s2">&quot;train.p&quot;</span><span class="p">)</span>
@@ -13192,11 +13193,12 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[31]:</div>
+<div class="prompt input_prompt">In&nbsp;[36]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">### Replace each question mark with the appropriate value. </span>
 <span class="c1">### Use python, pandas or numpy methods rather than hard coding the results</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 <span class="c1"># TODO: Number of training examples</span>
 <span class="n">n_train</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
@@ -13211,7 +13213,7 @@ div#notebook {
 <span class="n">image_shape</span> <span class="o">=</span> <span class="n">X_train</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span>
 
 <span class="c1"># TODO: How many unique classes/labels there are in the dataset.</span>
-<span class="n">n_classes</span> <span class="o">=</span> <span class="mi">43</span>
+<span class="n">n_classes</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">y_train</span><span class="p">))</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Number of training examples =&quot;</span><span class="p">,</span> <span class="n">n_train</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Number of validation examples =&quot;</span><span class="p">,</span> <span class="n">n_validation</span><span class="p">)</span>
@@ -13267,14 +13269,13 @@ Number of classes = 43
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[32]:</div>
+<div class="prompt input_prompt">In&nbsp;[37]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">### Data exploration visualization code goes here.</span>
 <span class="c1">### Feel free to use as many code cells as needed.</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">random</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">cv2</span>
 <span class="c1"># Visualizations will be shown in the notebook.</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline
@@ -13317,7 +13318,7 @@ Number of classes = 43
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[32]:</div>
+    <div class="prompt output_prompt">Out[37]:</div>
 
 
 
@@ -13385,7 +13386,7 @@ Number of classes = 43
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[33]:</div>
+<div class="prompt input_prompt">In&nbsp;[38]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">### Preprocess the data here. It is required to normalize the data. Other preprocessing steps could include </span>
@@ -13419,9 +13420,8 @@ Number of classes = 43
     <span class="k">return</span> <span class="n">cv2</span><span class="o">.</span><span class="n">warpAffine</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="p">(</span><span class="n">w</span><span class="p">,</span><span class="n">h</span><span class="p">))</span>
 
 <span class="k">def</span> <span class="nf">augment_image</span><span class="p">(</span><span class="n">img</span><span class="p">):</span>
-    <span class="c1">#image = np.copy(img)</span>
-    <span class="c1">#if (bool(random.getrandbits(1))):</span>
-    <span class="c1">#    image = flip_image(image)</span>
+    <span class="c1">#plt.figure(figsize=(1,1))</span>
+    <span class="c1">#plt.imshow(img, cmap=&quot;gray&quot;)</span>
     <span class="k">if</span> <span class="p">(</span><span class="nb">bool</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">getrandbits</span><span class="p">(</span><span class="mi">1</span><span class="p">))):</span>
         <span class="n">kernel_size</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
         <span class="n">cv2</span><span class="o">.</span><span class="n">blur</span><span class="p">(</span><span class="n">img</span><span class="p">,(</span><span class="n">kernel_size</span><span class="p">,</span><span class="n">kernel_size</span><span class="p">))</span>
@@ -13429,6 +13429,9 @@ Number of classes = 43
 
     <span class="n">image</span> <span class="o">=</span> <span class="n">rotate</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
     <span class="n">image</span> <span class="o">=</span> <span class="n">translate</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+        
+    <span class="c1">#plt.figure(figsize=(1,1))</span>
+    <span class="c1">#plt.imshow(image, cmap=&quot;gray&quot;)</span>
     <span class="k">return</span> <span class="n">image</span>
     
 <span class="k">def</span> <span class="nf">augment_data</span><span class="p">(</span><span class="n">image_indexes</span><span class="p">,</span> <span class="n">num_to_augment</span><span class="p">):</span>
@@ -13436,7 +13439,6 @@ Number of classes = 43
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">num_to_augment</span><span class="p">):</span>
         <span class="n">index</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">image_indexes</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
         <span class="n">image</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">X_train</span><span class="p">[</span><span class="n">image_indexes</span><span class="p">[</span><span class="n">index</span><span class="p">]])</span>
-
         <span class="n">augmented_images</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">augment_image</span><span class="p">(</span><span class="n">image</span><span class="p">))</span> 
     <span class="k">return</span> <span class="n">augmented_images</span>
 
@@ -13453,8 +13455,8 @@ Number of classes = 43
 <span class="n">index</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">X_train</span><span class="p">))</span>
 <span class="n">image</span> <span class="o">=</span> <span class="n">X_train</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()</span>
 
-<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">)</span>
+<span class="c1">#plt.figure(figsize=(1,1))</span>
+<span class="c1">#plt.imshow(image, cmap=&#39;gray&#39;)</span>
 
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">X_train</span><span class="p">)):</span>
     <span class="n">images_of_class</span><span class="p">[</span><span class="n">y_train</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
@@ -13470,7 +13472,7 @@ Number of classes = 43
         <span class="n">X_train_augmented</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">X_train</span><span class="p">[</span><span class="n">images_of_class</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]])</span>
     <span class="n">y_train_augmented</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">y_train_augmented</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">num_img_class</span><span class="p">)</span> <span class="o">*</span> <span class="n">i</span><span class="p">])</span>
     <span class="k">if</span> <span class="n">num_img_class</span>  <span class="o">&lt;</span> <span class="n">max_num</span><span class="p">:</span>
-        <span class="n">to_create</span> <span class="o">=</span> <span class="n">max_num</span> <span class="o">-</span> <span class="n">num_img_class</span> 
+        <span class="n">to_create</span> <span class="o">=</span> <span class="n">max_num</span> <span class="o">-</span> <span class="n">num_img_class</span>
         <span class="n">new_data</span><span class="o">=</span><span class="p">[]</span>
         <span class="n">new_data</span> <span class="o">=</span> <span class="n">augment_data</span><span class="p">(</span><span class="n">images_of_class</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">to_create</span><span class="p">)</span>
         <span class="n">X_train_augmented</span> <span class="o">+=</span> <span class="n">new_data</span>
@@ -13489,32 +13491,10 @@ Number of classes = 43
 </div>
 </div>
 
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-
-<div class="output_png output_subarea ">
-<img src="data:image/png;base64,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
-"
->
-</div>
-
-</div>
-
-</div>
-</div>
-
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[34]:</div>
+<div class="prompt input_prompt">In&nbsp;[39]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X_train_augmented</span><span class="p">)</span><span class="o">/</span><span class="n">max_num</span><span class="p">)</span>
@@ -13591,7 +13571,7 @@ Number of classes = 43
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[153]:</div>
+<div class="prompt input_prompt">In&nbsp;[40]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">### Define your architecture here.</span>
@@ -13677,7 +13657,7 @@ sets imply underfitting. A high accuracy on the training set but low accuracy on
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[174]:</div>
+<div class="prompt input_prompt">In&nbsp;[55]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">### Train your model here.</span>
@@ -13687,7 +13667,7 @@ sets imply underfitting. A high accuracy on the training set but low accuracy on
 <span class="c1">### Feel free to use as many code cells as needed.</span>
 <span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
 
-<span class="n">EPOCHS</span> <span class="o">=</span> <span class="mi">350</span>
+<span class="n">EPOCHS</span> <span class="o">=</span> <span class="mi">100</span>
 <span class="n">BATCH_SIZE</span> <span class="o">=</span> <span class="mi">256</span>
 <span class="n">x</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">placeholder</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
 <span class="n">y</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">placeholder</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">int32</span><span class="p">,</span> <span class="p">(</span><span class="kc">None</span><span class="p">))</span>
@@ -13737,8 +13717,6 @@ sets imply underfitting. A high accuracy on the training set but low accuracy on
                 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;EPOCH </span><span class="si">{}</span><span class="s2"> ...&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>
                 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Validation Accuracy = </span><span class="si">{:.3f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">validation_accuracy</span><span class="p">))</span>
                 <span class="nb">print</span><span class="p">()</span>
-            <span class="k">if</span> <span class="p">(</span><span class="n">validation_accuracy</span> <span class="o">&gt;</span> <span class="mf">0.94</span><span class="p">):</span>
-                <span class="k">break</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Validation Accuracy = </span><span class="si">{:.3f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">validation_accuracy</span><span class="p">))</span>
         <span class="n">saver</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">sess</span><span class="p">,</span><span class="s1">&#39;./lenet&#39;</span> <span class="p">)</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Model saved&quot;</span><span class="p">)</span>
@@ -13774,36 +13752,36 @@ sets imply underfitting. A high accuracy on the training set but low accuracy on
 <pre>Training...
 
 EPOCH 1 ...
-Validation Accuracy = 0.482
+Validation Accuracy = 0.428
 
 EPOCH 11 ...
-Validation Accuracy = 0.881
+Validation Accuracy = 0.893
 
 EPOCH 21 ...
-Validation Accuracy = 0.909
+Validation Accuracy = 0.912
 
 EPOCH 31 ...
-Validation Accuracy = 0.914
+Validation Accuracy = 0.917
 
 EPOCH 41 ...
-Validation Accuracy = 0.924
+Validation Accuracy = 0.926
 
 EPOCH 51 ...
-Validation Accuracy = 0.927
-
-EPOCH 61 ...
-Validation Accuracy = 0.938
-
-EPOCH 71 ...
-Validation Accuracy = 0.935
-
-EPOCH 81 ...
 Validation Accuracy = 0.934
 
-EPOCH 91 ...
-Validation Accuracy = 0.938
+EPOCH 61 ...
+Validation Accuracy = 0.937
 
-Validation Accuracy = 0.940
+EPOCH 71 ...
+Validation Accuracy = 0.930
+
+EPOCH 81 ...
+Validation Accuracy = 0.941
+
+EPOCH 91 ...
+Validation Accuracy = 0.944
+
+Validation Accuracy = 0.943
 Model saved
 </pre>
 </div>
@@ -13815,7 +13793,7 @@ Model saved
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[175]:</div>
+<div class="prompt input_prompt">In&nbsp;[56]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
@@ -13853,9 +13831,9 @@ Model saved
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>INFO:tensorflow:Restoring parameters from ./lenet
 model loaded
-0.9954536659548282
-0.940362811548099
-0.9175771972912224
+0.9948732830357749
+0.9433106578937193
+0.9231195567528218
 </pre>
 </div>
 </div>
@@ -13883,7 +13861,7 @@ model loaded
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[176]:</div>
+<div class="prompt input_prompt">In&nbsp;[57]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">### Load the images and plot them here.</span>
@@ -14101,7 +14079,7 @@ model loaded
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[177]:</div>
+<div class="prompt input_prompt">In&nbsp;[58]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">### Run the predictions here and use the model to output the prediction for each image.</span>
@@ -14119,8 +14097,6 @@ model loaded
     <span class="n">calc_logits</span><span class="o">=</span><span class="n">sess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">logits</span><span class="p">,</span> <span class="n">feed_dict</span><span class="o">=</span><span class="p">{</span><span class="n">x</span><span class="p">:</span> <span class="n">real_reshaped</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">y_real_images</span><span class="p">})</span>
     <span class="n">predictions</span><span class="o">=</span><span class="n">sess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">equal</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">constant</span><span class="p">(</span><span class="n">calc_logits</span><span class="p">),</span> <span class="mi">1</span><span class="p">),</span> <span class="n">tf</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">one_hot_y</span><span class="p">,</span> <span class="mi">1</span><span class="p">)),</span> <span class="n">feed_dict</span><span class="o">=</span><span class="p">{</span><span class="n">x</span><span class="p">:</span> <span class="n">real_reshaped</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">y_real_images</span><span class="p">})</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">predictions</span><span class="p">)</span>
-    <span class="n">accuracy</span> <span class="o">=</span> <span class="n">sess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">reduce_mean</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">constant</span><span class="p">(</span><span class="n">predictions</span><span class="p">),</span> <span class="n">tf</span><span class="o">.</span><span class="n">float32</span><span class="p">)),</span> <span class="n">feed_dict</span><span class="o">=</span><span class="p">{</span><span class="n">x</span><span class="p">:</span> <span class="n">real_reshaped</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">y_real_images</span><span class="p">})</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">accuracy</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">sess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">constant</span><span class="p">(</span><span class="n">calc_logits</span><span class="p">),</span> <span class="mi">1</span><span class="p">)))</span>
 </pre></div>
 
@@ -14140,9 +14116,8 @@ model loaded
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>INFO:tensorflow:Restoring parameters from ./lenet
 [40 14 23 37 38]
-[ True  True  True  True  True]
-1.0
-[40 14 23 37 38]
+[ True  True  True False  True]
+[40 14 23 18 38]
 </pre>
 </div>
 </div>
@@ -14160,15 +14135,15 @@ model loaded
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[178]:</div>
+<div class="prompt input_prompt">In&nbsp;[59]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">### Calculate the accuracy for these 5 new images. </span>
 <span class="c1">### For example, if the model predicted 1 out of 5 signs correctly, it&#39;s 20% accurate on these new images.</span>
 <span class="k">with</span> <span class="n">tf</span><span class="o">.</span><span class="n">Session</span><span class="p">()</span> <span class="k">as</span> <span class="n">sess</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">y_real_images</span><span class="p">)</span>
-    <span class="n">top5</span> <span class="o">=</span> <span class="n">sess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">top_k</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">softmax</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">constant</span><span class="p">(</span><span class="n">calc_logits</span><span class="p">)),</span> <span class="n">k</span><span class="o">=</span><span class="mi">5</span><span class="p">))</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">top5</span><span class="p">)</span>
+    <span class="n">accuracy</span> <span class="o">=</span> <span class="n">sess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">reduce_mean</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">constant</span><span class="p">(</span><span class="n">predictions</span><span class="p">),</span> <span class="n">tf</span><span class="o">.</span><span class="n">float32</span><span class="p">)),</span> <span class="n">feed_dict</span><span class="o">=</span><span class="p">{</span><span class="n">x</span><span class="p">:</span> <span class="n">real_reshaped</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">y_real_images</span><span class="p">})</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;accuracy: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">accuracy</span><span class="p">))</span>
+    
 </pre></div>
 
     </div>
@@ -14185,21 +14160,7 @@ model loaded
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>[40 14 23 37 38]
-TopKV2(values=array([[1.0000000e+00, 6.4501080e-09, 5.0517222e-09, 1.6942245e-12,
-        5.3638412e-14],
-       [9.7301447e-01, 2.5499823e-02, 1.4260906e-03, 4.7685506e-05,
-        3.7405280e-06],
-       [9.8875976e-01, 1.1238799e-02, 7.5690326e-07, 5.8051165e-07,
-        1.5814315e-07],
-       [9.9999976e-01, 2.2679282e-07, 8.3228455e-09, 2.7594274e-09,
-        1.0311699e-09],
-       [9.9601656e-01, 2.1440170e-03, 1.8386871e-03, 6.6851590e-07,
-        2.9193751e-08]], dtype=float32), indices=array([[40, 35, 12, 38,  2],
-       [14, 38, 22, 34, 25],
-       [23, 26, 29, 20, 19],
-       [37, 30, 42, 39, 21],
-       [38,  0, 34, 40, 21]], dtype=int32))
+<pre>accuracy: 0.8
 </pre>
 </div>
 </div>
@@ -14252,14 +14213,50 @@ a = np.array([[ 0.24879643,  0.07032244,  0.12641572,  0.34763842,  0.07893497,
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[12]:</div>
+<div class="prompt input_prompt">In&nbsp;[60]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">### Print out the top five softmax probabilities for the predictions on the German traffic sign images found on the web. </span>
 <span class="c1">### Feel free to use as many code cells as needed.</span>
+<span class="k">with</span> <span class="n">tf</span><span class="o">.</span><span class="n">Session</span><span class="p">()</span> <span class="k">as</span> <span class="n">sess</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">y_real_images</span><span class="p">)</span>
+    <span class="n">top5</span> <span class="o">=</span> <span class="n">sess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">top_k</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">softmax</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">constant</span><span class="p">(</span><span class="n">calc_logits</span><span class="p">)),</span> <span class="n">k</span><span class="o">=</span><span class="mi">5</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">top5</span><span class="p">)</span>
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[40 14 23 37 38]
+TopKV2(values=array([[1.00000000e+00, 1.74280573e-11, 1.14693172e-12, 4.22941982e-14,
+        7.38172405e-17],
+       [9.98980105e-01, 9.12576215e-04, 1.01483936e-04, 3.61861248e-06,
+        2.16449280e-06],
+       [1.00000000e+00, 1.89664107e-09, 1.72933230e-11, 1.21143828e-12,
+        4.24687439e-13],
+       [9.98074770e-01, 1.08045759e-03, 7.61427451e-04, 7.91893253e-05,
+        3.76461844e-06],
+       [9.99755204e-01, 2.44769442e-04, 7.54222518e-10, 9.67873091e-12,
+        7.71704065e-20]], dtype=float32), indices=array([[40, 34, 16, 14, 37],
+       [14, 17, 38, 34, 23],
+       [23, 11, 20, 30, 28],
+       [18, 40, 37, 29, 25],
+       [38, 34, 36, 17, 30]], dtype=int32))
+</pre>
+</div>
+</div>
+
 </div>
 </div>
 

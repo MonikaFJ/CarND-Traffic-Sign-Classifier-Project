@@ -22,8 +22,8 @@ The goals / steps of this project are the following:
 [image1]: ./examples_mine/class_visualization.png "Visualization"
 [image11]: ./examples_mine/modified_class_visualization.png "Visualization updated"
 
-[image2]: ./examples_mine/sing_1.jpg "Before"
-[image3]: ./examples_mine/sing_2.jpg "After"
+[image2]: ./examples_mine/sign_1.png "Before"
+[image3]: ./examples_mine/sign_2.png "After"
 [image4]: ./examples_mine/signs_all.png "Original image"
 [image5]: ./examples_mine/signs_resized.png "Resized and greyscale"
 [image6]: ./examples_mine/placeholder.png "Traffic Sign 3"
@@ -51,7 +51,7 @@ signs data set:
 * The size of the validation set is 4410
 * The size of test set is 12630
 * The shape of a traffic sign image is  (32, 32, 3)
-* The number of unique classes/labels in the data set is 42
+* The number of unique classes/labels in the data set is 43
 
 #### 2. Include an exploratory visualization of the dataset.
 
@@ -72,7 +72,7 @@ As a final step I normalized the image data to help the optimizer.
 
 Here is an example of an original image and an augmented image:
 
-![alt text][image2] 
+![alt text][image2]
 ![alt text][image3]
 
 
@@ -107,7 +107,7 @@ My final model was based on LeNet structure. I only added two additional dropout
 
 #### 3. Describe how you trained your model. The discussion can include the type of optimizer, the batch size, number of epochs and any hyperparameters such as learning rate.
 
-To train the model, I used an batch size 256 and learning rate 0.001. I was training 100 epochs. I was playing around with this values, but further tuning them might still lead to better overall network performance.
+To train the model, I used an batch size 256 and learning rate 0.001. I was training 100 epochs. I was playing around with this values, but further tuning them might still lead to slightly better overall network performance. 
 
 I did not change the mu and sigma parameters.
 
@@ -120,10 +120,11 @@ My base solution was to use the unchanged LeNet architecture. It was relatively 
 
 With the data augmentation in the dataset, I was able to fulfill the project requirements, so I did not introduce any other changes.
 
+
 My final model results were:
-* training set accuracy of 0.9954536659548282
-* validation set accuracy of 0.940362811548099
-* test set accuracy of 0.9175771972912224
+* training set accuracy of 0.9948732830357749
+* validation set accuracy of 0.9433106578937193
+* test set accuracy of 0.9231195567528218
 
 ### Test a Model on New Images
 
@@ -133,10 +134,11 @@ Here are five German traffic signs that I found on the web. Left image shows the
 
 ![alt text][image4] ![alt text][image5]
 
-[ True  True Ture  True  True]
+[ True  True  True False  True]
 
+True labels: [40 14 23 37 38]
 
-True labels: [37, 40, 38, 14, 23]
+Detected labels: [40 14 23 18 38]
 
 Potential detection difficulties :
   1. In the first image the perspective might be a bit unusual, also it has a reflection.
@@ -151,34 +153,34 @@ Here are the results of the prediction:
 
 | Image			        |     Prediction	        					|
 |:---------------------:|:---------------------------------------------:|
-| Keep right					|  	Bicycles crossing								|
+| Roundabout mandatory					|  	Roundabout mandatory							|
 | Stop	      		| Stop 				 				|
 | Slippery Road			| Slippery Road      							|
-| Right or Straight      		| Right or Straight    				|
+| Go straight or left		| General caution    				|
 | Keep right					|  	Keep right							|
 
 
-The model was able to correctly guess all of the traffic signs, which gives an accuracy of 100%. This better than performance on the test set.
+The model was able to correctly guess 4 of the 5 traffic signs, which gives an accuracy of 80%. This worse performance on the test set.
 
 #### 3. Describe how certain the model is when predicting on each of the five new images by looking at the softmax probabilities for each prediction. Provide the top 5 softmax probabilities for each image along with the sign type of each probability. (OPTIONAL: as described in the "Stand Out Suggestions" part of the rubric, visualizations can also be provided such as bar charts)
 
 
-        TopKV2(values=array([[1.0000000e+00, 6.4501080e-09, 5.0517222e-09, 1.6942245e-12,
-        5.3638412e-14],
-       [9.7301447e-01, 2.5499823e-02, 1.4260906e-03, 4.7685506e-05,
-        3.7405280e-06],
-       [9.8875976e-01, 1.1238799e-02, 7.5690326e-07, 5.8051165e-07,
-        1.5814315e-07],
-       [9.9999976e-01, 2.2679282e-07, 8.3228455e-09, 2.7594274e-09,
-        1.0311699e-09],
-       [9.9601656e-01, 2.1440170e-03, 1.8386871e-03, 6.6851590e-07,
-        2.9193751e-08]], dtype=float32), indices=array([[40, 35, 12, 38,  2],
-       [14, 38, 22, 34, 25],
-       [23, 26, 29, 20, 19],
-       [37, 30, 42, 39, 21],
-       [38,  0, 34, 40, 21]], dtype=int32))
+      TopKV2(values=array([[1.00000000e+00, 1.74280573e-11, 1.14693172e-12, 4.22941982e-14,
+      7.38172405e-17],
+      [9.98980105e-01, 9.12576215e-04, 1.01483936e-04, 3.61861248e-06,
+      2.16449280e-06],
+      [1.00000000e+00, 1.89664107e-09, 1.72933230e-11, 1.21143828e-12,
+      4.24687439e-13],
+      [9.98074770e-01, 1.08045759e-03, 7.61427451e-04, 7.91893253e-05,
+      3.76461844e-06],
+      [9.99755204e-01, 2.44769442e-04, 7.54222518e-10, 9.67873091e-12,
+      7.71704065e-20]], dtype=float32), indices=array([[40, 34, 16, 14, 37],
+      [14, 17, 38, 34, 23],
+      [23, 11, 20, 30, 28],
+      [18, 40, 37, 29, 25],
+      [38, 34, 36, 17, 30]], dtype=int32))
 
-All the predictions were correct and with a very high probability.
+All the predictions, even the incorrect one, have a very high probabilities. In case of a wrongly predicted sign (row number 4), the correct prediction has third highest probability (7.61427451e-04).
 
 
 ### (Optional) Visualizing the Neural Network (See Step 4 of the Ipython notebook for more details)
